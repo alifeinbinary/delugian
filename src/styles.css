@@ -27,11 +27,26 @@
   text-align: center;
 }
 
+@font-face {
+  font-family: 'Deluge LED';
+  src: url('/assets/Deluge-LED.eot');
+  src: url('/assets/Deluge-LED.eot?#iefix') format('embedded-opentype'),
+      url('/assets/Deluge-LED.woff2') format('woff2'),
+      url('/assets/Deluge-LED.woff') format('woff'),
+      url('/assets/Deluge-LED.ttf') format('truetype'),
+      url('/assets/Deluge-LED.svg#Deluge-LED') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: 1em;
   will-change: filter;
   transition: 0.75s;
+  font-family: "Deluge LED";
+  font-size: 1.5em;
 }
 
 .logo.tauri:hover {
@@ -110,4 +125,30 @@ button {
   button:active {
     background-color: #0f0f0f69;
   }
+}
+body {
+  -youbkit-touch-callout: none;
+  -youbkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html,
+body {
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #1f1f20;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+
+.App,
+#root {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }

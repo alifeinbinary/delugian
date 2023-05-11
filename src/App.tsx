@@ -1,53 +1,70 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
-import "./App.css";
+import { useCallback, useEffect } from 'react'
+import styled from 'styled-components'
+import Keyboard from './components/Keyboard'
+import KVProvider from './components/KVProvider/KVProvider'
+import { Config } from './components/Config'
+import ScreenManager from './components/ScreenManager/ScreenManager'
+import SidebarProvider from './components/SidebarProvider/SidebarProvider'
+import { MainDisplay } from './components/Main'
+import MainProvider from './components/MainProvider'
+import './i18n/config'
+
+const PracticeScreenLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`
+
+const ConfigScreenLayout = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+`
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    const { key, metaKey } = e
+    let preventDefault = true
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+    if (key === 'q' && metaKey) {
+      preventDefault = false
+    }
+
+    if (preventDefault) {
+      e.preventDefault()
+    }
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  })
 
   return (
-    <div className="container">
-      <h1 className="text-3xl font-bold underline">Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className="row">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            greet();
-          }}
-        >
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
+    <KVProvider>
+      <SidebarProvider>
+        <MainProvider>
+          <ScreenManager
+            practice={
+              <PracticeScreenLayout>
+                <MainDisplay />
+                <Keyboard />
+              </PracticeScreenLayout>
+            }
+            config={
+              <ConfigScreenLayout>
+                <Config />
+              </ConfigScreenLayout>
+            }
           />
-          <button type="submit">Greet</button>
-        </form>
-      </div>
-      <p>{greetMsg}</p>
-    </div>
-  );
+        </MainProvider>
+      </SidebarProvider>
+    </KVProvider>
+  )
 }
 
-export default App;
+export default App
