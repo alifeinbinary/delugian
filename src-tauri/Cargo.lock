@@ -3,16 +3,6 @@
 version = 3
 
 [[package]]
-name = "Delugian"
-version = "0.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
-]
-
-[[package]]
 name = "adler"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -550,6 +540,16 @@ dependencies = [
  "darling_core",
  "quote",
  "syn 2.0.15",
+]
+
+[[package]]
+name = "delugian"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
 ]
 
 [[package]]

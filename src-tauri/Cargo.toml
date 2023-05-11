@@ -1,8 +1,8 @@
 [package]
-name = "Delugian"
+name = "delugian"
 version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "A companion app for the Deluge"
+authors = ["Andrew Halliwell"]
 license = ""
 repository = ""
 edition = "2021"
